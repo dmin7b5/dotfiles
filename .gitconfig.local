@@ -1,0 +1,11 @@
+[alias]
+  br = branch
+  ss = status -sb
+  pom = push origin master
+  dwd = diff --word-diff
+  l =    log --decorate --graph --abbrev-commit --date=relative --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  ld =   log --decorate --graph --abbrev-commit --date=short    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+  hub = !open $(echo $(git config --get remote.origin.url) | perl -pe \"s|git\\@github\\.com:|https://github.com/|\")
+  page= !open $(echo $(git config --get remote.origin.url) | perl -pe \"s|git\\@github\\.com:|https://github.com/|\" | perl -pe 's|https://github\\.com/(\\w+)/|http://$1.github.io/|' | perl -pe 's|\\.git$||g')
+[pretty]
+  colored = format:%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset
