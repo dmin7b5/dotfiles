@@ -30,7 +30,7 @@ values."
      syntax-checking
      auto-completion
      semantic
-     ;;better-defaults
+     better-defaults
      emoji
      erlang
      elixir
