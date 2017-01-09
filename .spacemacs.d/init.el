@@ -28,7 +28,13 @@ values."
      markdown
      deft
      syntax-checking
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-private-snippets-directory nil)
      semantic
      better-defaults
      emoji
@@ -54,19 +60,20 @@ values."
      themes-megapack
      gnus
      (erc :variables
+          erc-autojoin-channels-alist
+          '((".*\\.freenode.net" "#emacs" "elixir-lang" "#linux"))
+          erc-track-exclude-types
+          '(("JOIN" "NICK" "PART" "QUIT" "MODE"
+             "324" "329" "332" "333" "353" "477"))
+          erc-hide-list
+          '(("JOIN" "PART" "QUIT" "NICK"))
+          erc-scrolltobotton-mode t
+          erc-spelling-mode t
           erc-server-list
           '(("irc.freenode.net"
              :port "6697"
              :ssl t
-             :nick "dmin7b5")
-            ("irc.gitter.im"
-             :port "6697"
-             :ssl t
-             :nick "dmin7b5"))
-          erc-autojoin-channels-alist
-          '(("freenode\\.net" "#elixir-lang")
-            "irc.gitter.im" "#syl20bnr/spacemacs"))
-           
+             :nick "dmin7b5")))
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -79,6 +86,7 @@ values."
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(
                                       org-journal
+                                      company-emoji
                                       impatient-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -242,9 +250,29 @@ layers configuration. You are free to put any user code."
    (global-set-key [f8] 'neotree-toggle)
    (setq markdown-open-command "/usr/local/bin/mark")
    (set-face-attribute 'default nil :height 180)
+   (setq emoji-cheat-sheet-plus-display-mode t)
+
+   ;; YASnippet Dir
+   (setq yas-snippet-dirs
+         '("~/.spacemacs.d/snippets"))
+
+   (setq auto-completion-private-snippets-directory
+         '("~/.spacemacs.d/snippets"))
+
+   ;; Org mode
+   (setq org-directory "~/CloudStation/Files/Jeff/Org")
+
+   ;; MobileOrg
+   (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+   (setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
+
+   ;; Org Agenda
+   (setq org-agenda-files (list "~/CloudStation/Files/Jeff/Org/work.gpg"
+                                "~/CloudStation/Files/Jeff/Org/personal.gpg" 
+                                "~/CloudStation/Files/Jeff/Org/home.gpg"))
 
    ;; org-journal
-   (setq org-journal-dir "~/CloudStation/Files/Jeff/Journal"
+   (setq org-journal-dir "~/CloudStation/Files/Jeff/Org/Journal"
          org-journal-file-format "%Y%m%d.gpg")
    (evil-leader/set-key
      "jj" 'org-journal-new-entry)
