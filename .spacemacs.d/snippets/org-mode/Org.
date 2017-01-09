@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Org PGP
+# key: Org.
+# --
+# -*- mode:org; epa-file-encrypt-to: ("dmin7b5@gmail.com") -*-
