@@ -18,6 +18,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     graphviz
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -61,7 +62,7 @@ values."
      gnus
      (erc :variables
           erc-autojoin-channels-alist
-          '((".*\\.freenode.net" "#emacs" "elixir-lang" "#linux"))
+          '((".*\\.freenode.net" "#emacs" "#elixir-lang" "#linux"))
           erc-track-exclude-types
           '(("JOIN" "NICK" "PART" "QUIT" "MODE"
              "324" "329" "332" "333" "353" "477"))
@@ -73,7 +74,11 @@ values."
           '(("irc.freenode.net"
              :port "6697"
              :ssl t
-             :nick "dmin7b5")))
+             :nick "dmin7b5")
+            ("semaphoremobile.irc.slack.com"
+             :port "6697"
+             :ssl t
+             :nick "jeff")))
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -251,6 +256,7 @@ layers configuration. You are free to put any user code."
    (setq markdown-open-command "/usr/local/bin/mark")
    (set-face-attribute 'default nil :height 180)
    (setq emoji-cheat-sheet-plus-display-mode t)
+   (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
    ;; YASnippet Dir
    (setq yas-snippet-dirs
@@ -261,15 +267,18 @@ layers configuration. You are free to put any user code."
 
    ;; Org mode
    (setq org-directory "~/CloudStation/Files/Jeff/Org")
+   (setq org-export-coding-system 'utf-8)
+   (setq org-pretty-entities t)
 
-   ;; MobileOrg
+   ;; Org agenda
+   (setq org-agenda-files (list "~/CloudStation/Files/Jeff/Org/work.org"
+                                "~/CloudStation/Files/Jeff/Org/index.org"
+                                "~/CloudStation/Files/Jeff/Org/home.org"))
+
+   ;; mobileorg settings
+   (setq org-mobile-inbox-for-pull "~/CloudStation/Files/Jeff/Org/index.org")
    (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-   (setq org-mobile-inbox-for-pull (concat org-directory "/index.org"))
-
-   ;; Org Agenda
-   (setq org-agenda-files (list "~/CloudStation/Files/Jeff/Org/work.gpg"
-                                "~/CloudStation/Files/Jeff/Org/personal.gpg" 
-                                "~/CloudStation/Files/Jeff/Org/home.gpg"))
+   (setq org-mobile-files '("~/CloudStation/Files/Jeff/Org"))
 
    ;; org-journal
    (setq org-journal-dir "~/CloudStation/Files/Jeff/Org/Journal"
