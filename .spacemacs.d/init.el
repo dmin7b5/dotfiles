@@ -24,10 +24,10 @@ values."
      ;; <M-m f e R> (Emacs style) to install them. 
      ;; ----------------------------------------------------------------
      helm
+     html
      graphviz
      c-c++
      emacs-lisp
-     sos
      markdown
      deft
      syntax-checking
@@ -64,7 +64,8 @@ values."
      gnus
      (erc :variables
           erc-autojoin-channels-alist
-          '((".*\\.freenode.net" "#emacs" "#elixir-lang" "#linux"))
+          '((".*\\.freenode.net" "#emacs" "#elixir-lang" "#linux")
+            (".*\\.gitter.im" "#syl20bnr/spacemacs"))
           erc-track-exclude-types
           '(("JOIN" "NICK" "PART" "QUIT" "MODE"
              "324" "329" "332" "333" "353" "477"))
@@ -74,6 +75,10 @@ values."
           erc-spelling-mode t
           erc-server-list
           '(("irc.freenode.net"
+             :port "6697"
+             :ssl t
+             :nick "dmin7b5")
+            ("irc.gitter.im"
              :port "6697"
              :ssl t
              :nick "dmin7b5")
@@ -94,9 +99,11 @@ values."
    dotspacemacs-additional-packages '(
                                       org-journal
                                       company-emoji
+                                      sos
                                       impatient-mode
                                       helm-org-rifle
                                       hackernews
+                                      yatemplate
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -248,9 +255,8 @@ values."
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
-jser code."
+user code."
   (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-  (setq exec-path (append exec-path '("/usr/local/bin")))
 )
 
 (defun dotspacemacs/user-config ()
@@ -264,6 +270,9 @@ layers configuration. You are free to put any user code."
    (setq emoji-cheat-sheet-plus-display-mode t)
    (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
+   ;; Set the shell type
+   ;;(setq explicit-shell-file-name "/bin/zsh")
+
    ;; YASnippet Dir
    (setq yas-snippet-dirs
          '("~/.spacemacs.d/snippets"))
@@ -275,12 +284,13 @@ layers configuration. You are free to put any user code."
    (setq org-directory "~/CloudStation/Files/Jeff/Org")
    (setq org-export-coding-system 'utf-8)
    (setq org-pretty-entities t)
+   (setq org-log-into-drawer t)
 
    ;; Org agenda
    (setq org-agenda-files (list "~/CloudStation/Files/Jeff/Org/work.org"
                                 "~/CloudStation/Files/Jeff/Org/index.org"
+                                "~/CloudStation/Files/Jeff/Org/mylife.org"
                                 "~/CloudStation/Files/Jeff/Org/home.org"))
-
    ;; mobileorg settings
    (setq org-mobile-inbox-for-pull "~/CloudStation/Files/Jeff/Org/index.org")
    (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
@@ -305,6 +315,16 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-capture-templates
+   (quote
+    (("p" "Private Templates")
+     ("pt" "TODO Entry" entry
+      (file+headline "~/CloudStation/Files/Jeff/Org/Notes/mylife.org" "Capture")
+      (file "~/CloudStation/Files/Jeff/Org/Templates/tpl-todo.txt")
+      :empty-lines-before 1))))
+ '(package-selected-packages
+   (quote
+    (flycheck helm helm-core magit js2-mode yasnippet yatemplate zonokai-theme zenburn-theme zen-and-art-theme yapfify yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme typit twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance srefactor spacemacs-theme spaceline spacegray-theme sos soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme reveal-in-osx-finder restart-emacs rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters railscasts-theme quelpa pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pbcopy pastels-on-dark-theme paradox pacmacs osx-trash osx-dictionary orgit organic-green-theme org-projectile org-present org-pomodoro org-plus-contrib org-journal org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-elixir noctilux-theme niflheim-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minitest minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow magit-gh-pulls macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode launchctl json-mode js2-refactor js-doc jinja2-mode jbeans-theme jazz-theme ir-black-theme insert-shebang inkpot-theme info+ indent-guide impatient-mode ido-vertical-mode hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme hackernews gruvbox-theme gruber-darker-theme graphviz-dot-mode grandshell-theme gotham-theme google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md gandalf-theme flycheck-pos-tip flycheck-mix flx-ido flatui-theme flatland-theme fish-mode firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erlang erc-yt erc-view-log erc-terminal-notifier erc-social-graph erc-image erc-hl-nicks emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme disaster deft dash-at-point darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme company-web company-tern company-statistics company-shell company-emoji company-c-headers company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized color-identifiers-mode coffee-mode cmake-mode clues-theme clean-aindent-mode clang-format chruby cherry-blossom-theme busybee-theme bundler bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ansible-doc ansible ample-zen-theme ample-theme alect-themes alchemist aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell 2048-game)))
  '(send-mail-function (quote mailclient-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
