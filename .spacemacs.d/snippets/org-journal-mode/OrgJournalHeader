@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : OrgJournalHeader
+#key : OrgJournalHeader
+#contributor : Jeff
+# --
+# -*- mode:org-journal; epa-file-encrypt-to: ("dmin7b5@gmail.com") -*-
+#+SEQ_TODO:  NEXT(n)  TODO(t)  WAITING(w)  SOMEDAY(s)  PROJ(p)  |  DONE(d)  CANCELLED(c)
+#+TAGS:  PHONE(o) COMPUTER(c)  GARAGE(g)  SHOPPING(s)  FAMILY(f)  URGENT(u)
